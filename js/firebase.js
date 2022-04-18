@@ -1,6 +1,7 @@
 window.onload = () => voteCheck();
+
 // Import the functions you need from the SDKs you need
-import fbCfb from './firebaseConfig';
+import firebaseConfig from './firebaseConfig.js';
 
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js';
 
@@ -12,25 +13,27 @@ import {
   increment,
 } from 'https://www.gstatic.com/firebasejs/9.6.11/firebase-database.js';
 
-// Your web app's Firebase configuration
-
-const firebaseConfig = {
-  apiKey: fbCfb.apiKey,
-  authDomain: fbCfb.authDomain,
-  databaseURL: fbCfb.databaseURL,
-  projectId: fbCfb.projectId,
-  storageBucket: fbCfb.storageBucket,
-  messagingSenderId: fbCfb.messagingSenderId,
-  appId: fbCfb.appId,
-  measurementId: fbCfb.measurementId,
-};
-
 // Initialize Firebase
 initializeApp(firebaseConfig);
 
 const db = getDatabase();
 
 // localStorage.removeItem('voted');
+
+function voteCheck() {
+  if (localStorage.getItem('voted') !== null) {
+    document
+      .querySelectorAll('.btn')
+      .forEach(el => (el.style.display = 'none'));
+    document
+      .querySelectorAll('.votingResults')
+      .forEach(el => (el.style.display = 'block'));
+  } else {
+    document
+      .querySelectorAll('.votingResults')
+      .forEach(el => (el.style.display = 'none'));
+  }
+}
 
 const voteCount = ref(db, 'dogs/');
 onValue(voteCount, snapshot => {
@@ -59,19 +62,4 @@ function logger(e) {
   localStorage.setItem('voted', 't');
   voteCheck();
   update(ref(db), updates);
-}
-
-function voteCheck() {
-  if (localStorage.getItem('voted') !== null) {
-    document
-      .querySelectorAll('.btn')
-      .forEach(el => (el.style.display = 'none'));
-    document
-      .querySelectorAll('.votingResults')
-      .forEach(el => (el.style.display = 'block'));
-  } else {
-    document
-      .querySelectorAll('.votingResults')
-      .forEach(el => (el.style.display = 'none'));
-  }
 }
