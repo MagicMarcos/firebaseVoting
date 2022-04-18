@@ -1,5 +1,5 @@
 # Vote for your favorite dog! 
-<p>App that allows users to vote for their favorite dog breed. Each user can only vote once and votes are tracked in real time (updated without refreshign the page). </p>
+<p>App that allows users to vote for their favorite dog breed. Each user can only vote once and votes are tracked in real time (updated without refreshing the page). </p>
 
 ## How it's made: 
  * HTML
